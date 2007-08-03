@@ -1,15 +1,16 @@
 %define name gstreamer0.10
 %define oname gstreamer
-%define version 0.10.13
-%define release %mkrel 2
+%define version 0.10.14
+%define release %mkrel 1
 %define vname %{oname}10
 
 %define major 0.10
 %define majorminor 0.10
 %define libname %mklibname %{name}_ %{major}
+%define libnamedev %mklibname -d %{name}
 %define 	_glib2		2.2.0
 %define 	_libxml2	2.4.0
-%define build_docs 1
+%define build_docs 0
 
 Name: 		%name
 Summary: 	GStreamer Streaming-media framework runtime
@@ -79,7 +80,7 @@ plugins.
 
 This package contains the libraries.
 
-%package -n %libname-devel
+%package -n %libnamedev
 Summary: Libraries and include files for GStreamer streaming-media framework
 Group: Development/C
 Requires: %{libname} = %{version}
@@ -87,8 +88,9 @@ Requires: libglib2-devel
 Requires: libxml2-devel
 Provides: libgstreamer-devel = %version-%release
 Provides: libgstreamer%{majorminor}-devel = %version-%release
+Obsoletes: %mklibname -d %{name}_ 0.10
 
-%description -n%libname-devel
+%description -n %libnamedev
 GStreamer is a streaming-media framework, based on graphs of filters which
 operate on media data. Applications using this library can do anything
 from real-time sound processing to playing videos, and just about anything
@@ -193,7 +195,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{oname}-%{majorminor}/libgstcoreelements.so
 %{_libdir}/%{oname}-%{majorminor}/libgstcoreindexers.so
 
-%files -n %libname-devel
+%files -n %libnamedev
 %defattr(-, root, root)
 %doc ChangeLog TODO
 %if %build_docs
@@ -223,7 +225,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/gstreamer-dataprotocol-%majorminor.pc
 %{_libdir}/pkgconfig/gstreamer-net-%majorminor.pc
 %{_libdir}/pkgconfig/gstreamer-controller-%{majorminor}.pc
-%if %build_docs
+%if 1
 ## we specify the API docs as regular files since %docs doesn't fail when
 #  files aren't found anymore for RPM >= 4
 #  we list all of the files we really need to trap incomplete doc builds
