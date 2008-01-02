@@ -22,6 +22,7 @@ URL:            http://gstreamer.freedesktop.org/
 Source0: 	http://gstreamer.freedesktop.org/src/gstreamer/%{oname}-%{version}.tar.bz2
 # test don't pass on PPC (GNOME bug #348114)
 Patch1:		gstreamer-0.10.11-ppc.patch
+BuildRoot: 	%{_tmppath}/%{name}-%{version}-root
 BuildRequires: 	glib2-devel >= %_glib2
 BuildRequires: 	libxml2-devel >= %_libxml2
 BuildRequires:	popt-devel
