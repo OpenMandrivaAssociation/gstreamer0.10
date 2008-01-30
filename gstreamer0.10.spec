@@ -1,6 +1,6 @@
 %define name gstreamer0.10
 %define oname gstreamer
-%define version 0.10.16
+%define version 0.10.17
 %define release %mkrel 1
 %define vname %{oname}10
 
