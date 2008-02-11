@@ -1,7 +1,7 @@
 %define name gstreamer0.10
 %define oname gstreamer
 %define version 0.10.17
-%define release %mkrel 1
+%define release %mkrel 2
 %define vname %{oname}10
 
 %define major 0.10
@@ -88,7 +88,7 @@ Requires: %{libname} = %{version}
 Requires: libglib2-devel
 Requires: libxml2-devel
 Provides: libgstreamer-devel = %version-%release
-Provides: libgstreamer%{majorminor}-devel = %version-%release
+Provides: gstreamer%{majorminor}-devel = %version-%release
 Obsoletes: %mklibname -d %{name}_ 0.10
 
 %description -n %libnamedev
