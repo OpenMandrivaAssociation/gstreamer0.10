@@ -113,7 +113,7 @@ rm -rf $RPM_BUILD_ROOT
 %configure2_5x  --enable-debug --disable-dependency-tracking \
   --with-cachedir=%{_var}/cache/%{oname}-%{majorminor} \
   --with-configdir=%{_sysconfdir}/%{oname} \
-  --disable-tests --disable-examples \
+  --disable-tests --disable-examples --disable-rpath \
 %if %build_docs
   --enable-docbook --enable-gtk-doc \
 %else	
@@ -198,7 +198,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n %libnamedev
 %defattr(-, root, root)
-%doc ChangeLog TODO
+%doc ChangeLog
 %if %build_docs
 %doc installed-docs/*
 %endif
