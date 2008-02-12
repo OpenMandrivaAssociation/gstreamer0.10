@@ -151,7 +151,7 @@ mv %buildroot%_datadir/doc/%oname-%majorminor/ installed-docs
 %endif
 
 #gw really remove rpath for rpmlint
-chrpath -d %buildroot{%_bindir/gst-{inspect,launch,typefind,xmlinspect,xmllaunch}-0.10,%_libdir/*.so}
+chrpath -d %buildroot{%_bindir/gst-{inspect,launch,typefind,xmlinspect,xmllaunch}-0.10,%_libdir/{*.so,%{oname}-%{majorminor}/*.so}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
