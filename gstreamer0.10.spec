@@ -29,6 +29,7 @@ BuildRequires:	popt-devel
 BuildRequires:	gettext-devel
 BuildRequires:  libcheck-devel
 BuildRequires:  valgrind
+BuildRequires:  chrpath
 %ifarch %ix86 
 BuildRequires: 	nasm => 0.90
 %endif
@@ -148,6 +149,9 @@ rm -f %buildroot/%{_bindir}/gst-xmllaunch
 %if %build_docs
 mv %buildroot%_datadir/doc/%oname-%majorminor/ installed-docs
 %endif
+
+#gw really remove rpath for rpmlint
+chrpath -d %buildroot{%_bindir/gst-{inspect,launch,typefind,xmlinspect,xmllaunch}-0.10,%_libdir/*.so}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
