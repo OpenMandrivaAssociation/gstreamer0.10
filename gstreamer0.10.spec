@@ -1,7 +1,7 @@
 %define name gstreamer0.10
 %define oname gstreamer
 %define version 0.10.17
-%define release %mkrel 2
+%define release %mkrel 3
 %define vname %{oname}10
 
 %define major 0.10
@@ -112,6 +112,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %build
 %configure2_5x  --enable-debug --disable-dependency-tracking \
+  --with-package-name='Mandriva %name package' \
+  --with-package-origin='http://www.mandriva.com/' \
   --with-cachedir=%{_var}/cache/%{oname}-%{majorminor} \
   --with-configdir=%{_sysconfdir}/%{oname} \
   --disable-tests --disable-examples --disable-rpath \
