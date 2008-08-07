@@ -1,7 +1,7 @@
 %define name gstreamer0.10
 %define oname gstreamer
 %define version 0.10.20
-%define release %mkrel 1
+%define release %mkrel 2
 %define vname %{oname}10
 
 %define major 0.10
@@ -20,8 +20,8 @@ License: 	LGPL
 Group: 		Sound
 URL:            http://gstreamer.freedesktop.org/
 Source0: 	http://gstreamer.freedesktop.org/src/gstreamer/%{oname}-%{version}.tar.bz2
-# test don't pass on PPC (GNOME bug #348114)
-Patch1:		gstreamer-0.10.11-ppc.patch
+# (fc) 0.10.20-2mdv ensure translated strings are in UTF-8 (GNOME bug #546822)
+Patch1:		gstreamer-0.10.20-utf8.patch
 BuildRoot: 	%{_tmppath}/%{name}-%{version}-root
 BuildRequires: 	glib2-devel >= %_glib2
 BuildRequires: 	libxml2-devel >= %_libxml2
@@ -108,7 +108,7 @@ applications and plugins for GStreamer.
 rm -rf $RPM_BUILD_ROOT
 
 %setup -q -n %oname-%version
-%patch1 -p1 -b .ppc
+%patch1 -p1 -b .utf8
 
 %build
 %configure2_5x  --enable-debug --disable-dependency-tracking \
