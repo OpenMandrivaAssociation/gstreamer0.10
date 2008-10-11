@@ -10,7 +10,7 @@
 %define libnamedev %mklibname -d %{name}
 %define 	_glib2		2.2.0
 %define 	_libxml2	2.4.0
-%define build_docs 0
+%define build_docs 1
 
 Name: 		%name
 Summary: 	GStreamer Streaming-media framework runtime
