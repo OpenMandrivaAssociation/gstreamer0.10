@@ -36,6 +36,7 @@ BuildRequires:  flex
 %if %build_docs
 BuildRequires: 	gtk-doc >= 0.7
 BuildRequires: 	transfig
+BuildRequires:  docbook-dtd42-xml
 BuildRequires:  docbook-dtd412-xml
 BuildRequires:  ghostscript
 BuildRequires:  python-pyxml
