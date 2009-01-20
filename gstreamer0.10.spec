@@ -16,7 +16,7 @@ Name: 		%name
 Summary: 	GStreamer Streaming-media framework runtime
 Version: 	%version
 Release: 	%release
-License: 	LGPL
+License: 	LGPLv2+
 Group: 		Sound
 URL:            http://gstreamer.freedesktop.org/
 Source0: 	http://gstreamer.freedesktop.org/src/gstreamer/%{oname}-%{version}.tar.bz2
@@ -36,7 +36,7 @@ BuildRequires:  flex
 %if %build_docs
 BuildRequires: 	gtk-doc >= 0.7
 BuildRequires: 	transfig
-BuildRequires:  docbook-dtd42-xml
+BuildRequires:  docbook-dtd412-xml
 BuildRequires:  ghostscript
 BuildRequires:  python-pyxml
 %endif
