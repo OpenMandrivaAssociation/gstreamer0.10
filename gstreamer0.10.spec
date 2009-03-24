@@ -1,7 +1,7 @@
 %define name gstreamer0.10
 %define oname gstreamer
 %define version 0.10.22
-%define release %mkrel 1
+%define release %mkrel 2
 %define vname %{oname}10
 
 %define major 0.10
@@ -20,6 +20,10 @@ License: 	LGPLv2+
 Group: 		Sound
 URL:            http://gstreamer.freedesktop.org/
 Source0: 	http://gstreamer.freedesktop.org/src/gstreamer/%{oname}-%{version}.tar.bz2
+#gw Make sure to take a copy of the strings we're going to free later
+#should fix a crash in pidgin
+#https://qa.mandriva.com/show_bug.cgi?id=49003
+Patch: gstreamer-a626dff72c6dea80bfab31cf1810db724bc45afb.patch
 BuildRoot: 	%{_tmppath}/%{name}-%{version}-root
 BuildRequires: 	glib2-devel >= %_glib2
 BuildRequires: 	libxml2-devel >= %_libxml2
@@ -107,6 +111,7 @@ applications and plugins for GStreamer.
 rm -rf $RPM_BUILD_ROOT
 
 %setup -q -n %oname-%version
+%patch -p1
 
 %build
 %configure2_5x  --enable-debug --disable-dependency-tracking \
