@@ -1,7 +1,7 @@
 %define name gstreamer0.10
 %define oname gstreamer
-%define version 0.10.22
-%define release %mkrel 2
+%define version 0.10.23
+%define release %mkrel 1
 %define vname %{oname}10
 
 %define major 0.10
@@ -20,10 +20,6 @@ License: 	LGPLv2+
 Group: 		Sound
 URL:            http://gstreamer.freedesktop.org/
 Source0: 	http://gstreamer.freedesktop.org/src/gstreamer/%{oname}-%{version}.tar.bz2
-#gw Make sure to take a copy of the strings we're going to free later
-#should fix a crash in pidgin
-#https://qa.mandriva.com/show_bug.cgi?id=49003
-Patch: gstreamer-a626dff72c6dea80bfab31cf1810db724bc45afb.patch
 BuildRoot: 	%{_tmppath}/%{name}-%{version}-root
 BuildRequires: 	glib2-devel >= %_glib2
 BuildRequires: 	libxml2-devel >= %_libxml2
@@ -111,14 +107,11 @@ applications and plugins for GStreamer.
 rm -rf $RPM_BUILD_ROOT
 
 %setup -q -n %oname-%version
-%patch -p1
 
 %build
 %configure2_5x  --enable-debug --disable-dependency-tracking \
   --with-package-name='Mandriva %name package' \
   --with-package-origin='http://www.mandriva.com/' \
-  --with-cachedir=%{_var}/cache/%{oname}-%{majorminor} \
-  --with-configdir=%{_sysconfdir}/%{oname} \
   --disable-tests --disable-examples --disable-rpath \
 %if %build_docs
   --enable-docbook --enable-gtk-doc \
@@ -179,12 +172,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/gst-typefind-%majorminor
 %{_bindir}/gst-xmlinspect-%majorminor
 %{_bindir}/gst-xmllaunch-%majorminor
-%{_mandir}/man1/gst-feedback-%majorminor.1.*
-%{_mandir}/man1/gst-inspect-%majorminor.1.*
-%{_mandir}/man1/gst-launch-%majorminor.1.*
-%{_mandir}/man1/gst-typefind-%majorminor.1.*
-%{_mandir}/man1/gst-xmlinspect-%majorminor.1.*
-%{_mandir}/man1/gst-xmllaunch-%majorminor.1.*
+%{_mandir}/man1/gst-feedback-%majorminor.1*
+%{_mandir}/man1/gst-inspect-%majorminor.1*
+%{_mandir}/man1/gst-launch-%majorminor.1*
+%{_mandir}/man1/gst-typefind-%majorminor.1*
+%{_mandir}/man1/gst-xmlinspect-%majorminor.1*
+%{_mandir}/man1/gst-xmllaunch-%majorminor.1*
 # gw this must always be in a package named gstreamer-tools
 #%files -n gstreamer-tools
 #%defattr(-, root, root, -)
