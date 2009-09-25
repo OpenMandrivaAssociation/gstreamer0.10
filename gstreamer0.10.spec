@@ -1,7 +1,7 @@
 %define name gstreamer0.10
 %define oname gstreamer
 %define version 0.10.24
-%define release %mkrel 1
+%define release %mkrel 2
 %define vname %{oname}10
 
 %define major 0.10
@@ -26,7 +26,9 @@ BuildRequires: 	libxml2-devel >= %_libxml2
 BuildRequires:	popt-devel
 BuildRequires:	gettext-devel
 BuildRequires:  libcheck-devel
+%ifnarch %arm %mips
 BuildRequires:  valgrind
+%endif
 BuildRequires:  chrpath
 %ifarch %ix86 
 BuildRequires: 	nasm => 0.90
@@ -117,6 +119,9 @@ rm -rf $RPM_BUILD_ROOT
   --enable-docbook --enable-gtk-doc \
 %else	
   --disable-docbook --disable-gtk-doc \
+%endif
+%ifarch %mips
+  --disable-valgrind \
 %endif
  --with-html-dir=%_datadir/gtk-doc/html
 
