@@ -1,7 +1,7 @@
 %define name gstreamer0.10
 %define oname gstreamer
-%define version 0.10.24
-%define release %mkrel 2
+%define version 0.10.25
+%define release %mkrel 1
 %define vname %{oname}10
 
 %define major 0.10
@@ -23,6 +23,7 @@ Source0: 	http://gstreamer.freedesktop.org/src/gstreamer/%{oname}-%{version}.tar
 BuildRoot: 	%{_tmppath}/%{name}-%{version}-root
 BuildRequires: 	glib2-devel >= %_glib2
 BuildRequires: 	libxml2-devel >= %_libxml2
+BuildRequires:  gobject-introspection-devel
 BuildRequires:	popt-devel
 BuildRequires:	gettext-devel
 BuildRequires:  libcheck-devel
@@ -206,6 +207,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libgstcontroller-%{majorminor}.so.*
 %{_libdir}/%{oname}-%{majorminor}/libgstcoreelements.so
 %{_libdir}/%{oname}-%{majorminor}/libgstcoreindexers.so
+%_libdir/girepository-1.0/Gst-%majorminor.typelib
+%_libdir/girepository-1.0/GstBase-%majorminor.typelib
+%_libdir/girepository-1.0/GstCheck-%majorminor.typelib
+%_libdir/girepository-1.0/GstController-%majorminor.typelib
+%_libdir/girepository-1.0/GstNet-%majorminor.typelib
+
 
 %files -n %libnamedev
 %defattr(-, root, root)
@@ -264,5 +271,10 @@ rm -rf $RPM_BUILD_ROOT
 ## this catches all of the rest of the docs we might have forgotten
 %{_datadir}/gtk-doc/html/*
 %endif
+%_datadir/gir-1.0/Gst-%majorminor.gir
+%_datadir/gir-1.0/GstBase-%majorminor.gir
+%_datadir/gir-1.0/GstCheck-%majorminor.gir
+%_datadir/gir-1.0/GstController-%majorminor.gir
+%_datadir/gir-1.0/GstNet-%majorminor.gir
 
 
