@@ -1,7 +1,7 @@
 %define name gstreamer0.10
 %define oname gstreamer
 %define version 0.10.25
-%define release %mkrel 1
+%define release %mkrel 2
 %define vname %{oname}10
 
 %define major 0.10
@@ -73,6 +73,7 @@ Summary: Libraries for GStreamer streaming-media framework
 Group: System/Libraries
 Requires: %name-tools >= %version-%release
 Provides: libgstreamer%{majorminor} = %version-%release
+Conflicts: gir-repository < 0.6.5-3
 
 %description -n %libname
 GStreamer is a streaming-media framework, based on graphs of filters which
@@ -87,6 +88,7 @@ This package contains the libraries.
 %package -n %libnamedev
 Summary: Libraries and include files for GStreamer streaming-media framework
 Group: Development/C
+Conflicts: gir-repository < 0.6.5-3
 Requires: %{libname} = %{version}
 Requires: libglib2-devel
 Requires: libxml2-devel
