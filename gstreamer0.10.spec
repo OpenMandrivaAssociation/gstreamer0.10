@@ -1,7 +1,7 @@
 %define name gstreamer0.10
 %define oname gstreamer
-%define version 0.10.25
-%define release %mkrel 2
+%define version 0.10.25.2
+%define release %mkrel 1
 %define vname %{oname}10
 
 %define major 0.10
@@ -207,6 +207,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libgstreamer-%{majorminor}.so.*
 %{_libdir}/libgstnet-%{majorminor}.so.*
 %{_libdir}/libgstcontroller-%{majorminor}.so.*
+%{_libdir}/%{oname}-%{majorminor}/gst-plugin-scanner
 %{_libdir}/%{oname}-%{majorminor}/libgstcoreelements.so
 %{_libdir}/%{oname}-%{majorminor}/libgstcoreindexers.so
 %_libdir/girepository-1.0/Gst-%majorminor.typelib
