@@ -1,7 +1,7 @@
 %define name gstreamer0.10
 %define oname gstreamer
 %define version 0.10.30
-%define release %mkrel 2
+%define release %mkrel 3
 %define vname %{oname}10
 
 %define major 0.10
@@ -20,6 +20,8 @@ License: 	LGPLv2+
 Group: 		Sound
 URL:            http://gstreamer.freedesktop.org/
 Source0: 	http://gstreamer.freedesktop.org/src/gstreamer/%{oname}-%{version}.tar.bz2
+Patch0: gstreamer-0.10.30-fix-g-i-build.patch
+Patch1: gstreamer-0.10.30-fix-makefiles.patch
 BuildRoot: 	%{_tmppath}/%{name}-%{version}-root
 BuildRequires: 	glib2-devel >= %_glib2
 BuildRequires: 	libxml2-devel >= %_libxml2
@@ -112,6 +114,8 @@ applications and plugins for GStreamer.
 rm -rf $RPM_BUILD_ROOT
 
 %setup -q -n %oname-%version
+%apply_patches
+automake
 
 %build
 %configure2_5x  --enable-debug --disable-dependency-tracking \
