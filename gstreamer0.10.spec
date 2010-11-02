@@ -1,7 +1,7 @@
 %define name gstreamer0.10
 %define oname gstreamer
 %define version 0.10.30.2
-%define release %mkrel 1
+%define release %mkrel 2
 %define vname %{oname}10
 
 %define major 0.10
@@ -20,6 +20,8 @@ License: 	LGPLv2+
 Group: 		Sound
 URL:            http://gstreamer.freedesktop.org/
 Source0: 	http://gstreamer.freedesktop.org/src/gstreamer/%{oname}-%{version}.tar.bz2
+Source1:	gstreamer.prov
+Patch0:		gstreamer-inspect-rpm-format.patch
 BuildRoot: 	%{_tmppath}/%{name}-%{version}-root
 BuildRequires: 	glib2-devel >= %_glib2
 BuildRequires: 	libxml2-devel >= %_libxml2
@@ -109,8 +111,6 @@ applications and plugins for GStreamer.
 
 
 %prep
-rm -rf $RPM_BUILD_ROOT
-
 %setup -q -n %oname-%version
 %apply_patches
 #automake
@@ -152,7 +152,6 @@ rm -f %buildroot/%{_bindir}/gst-typefind
 rm -f %buildroot/%{_bindir}/gst-xmlinspect
 rm -f %buildroot/%{_bindir}/gst-xmllaunch
 
-
 %find_lang %oname-%majorminor
 %if %build_docs
 mv %buildroot%_datadir/doc/%oname-%majorminor/ installed-docs
@@ -160,6 +159,9 @@ mv %buildroot%_datadir/doc/%oname-%majorminor/ installed-docs
 
 #gw really remove rpath for rpmlint
 chrpath -d %buildroot{%_bindir/gst-{inspect,launch,typefind,xmlinspect,xmllaunch}-0.10,%_libdir/{*.so,%{oname}-%{majorminor}/*.so}}
+
+# Add the provides script
+install -m0755 -D %{SOURCE1} $RPM_BUILD_ROOT%{_prefix}/lib/rpm/mandriva/gstreamer.prov
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -225,6 +227,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %build_docs
 %doc installed-docs/*
 %endif
+%{_prefix}/lib/rpm/mandriva/gstreamer.prov
 %dir %{_includedir}/%{oname}-%{majorminor}
 %dir %{_includedir}/%{oname}-%{majorminor}/gst
 %{_includedir}/%{oname}-%{majorminor}/gst/*.h
