@@ -1,7 +1,7 @@
 %define name gstreamer0.10
 %define oname gstreamer
 %define version 0.10.30.2
-%define release %mkrel 3
+%define release %mkrel 4
 %define vname %{oname}10
 
 %define major 0.10
@@ -95,6 +95,7 @@ Requires: %{libname} = %{version}
 Requires: libglib2-devel
 Requires: libxml2-devel
 Requires: rpm-mandriva-setup-build >= 1.113
+Requires: %{name}-tools = %{version}
 Provides: libgstreamer-devel = %version-%release
 Provides: gstreamer%{majorminor}-devel = %version-%release
 Obsoletes: %mklibname -d %{name}_ 0.10
