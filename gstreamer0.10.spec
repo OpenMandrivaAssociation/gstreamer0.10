@@ -11,8 +11,8 @@
 
 Name:		%{vname}
 Summary: 	GStreamer Streaming-media framework runtime
-Version: 	0.10.32
-Release: 	3
+Version: 	0.10.33
+Release: 	1
 License: 	LGPLv2+
 Group: 		Sound
 URL:            http://gstreamer.freedesktop.org/
