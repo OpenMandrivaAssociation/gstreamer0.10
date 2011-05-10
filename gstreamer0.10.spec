@@ -1,7 +1,4 @@
-%define name gstreamer0.10
 %define oname gstreamer
-%define version 0.10.32
-%define release %mkrel 2
 %define vname %{oname}10
 
 %define major 0.10
@@ -12,10 +9,10 @@
 %define 	_libxml2	2.4.0
 %define build_docs 1
 
-Name: 		%name
+Name:		%{vname}
 Summary: 	GStreamer Streaming-media framework runtime
-Version: 	%version
-Release: 	%release
+Version: 	0.10.32
+Release: 	3
 License: 	LGPLv2+
 Group: 		Sound
 URL:            http://gstreamer.freedesktop.org/
@@ -73,7 +70,6 @@ plugins.
 %package -n %libname
 Summary: Libraries for GStreamer streaming-media framework
 Group: System/Libraries
-Requires: %name-tools >= %version-%release
 Provides: libgstreamer%{majorminor} = %version-%release
 Conflicts: gir-repository < 0.6.5-3
 
