@@ -19,7 +19,6 @@ URL:            http://gstreamer.freedesktop.org/
 Source0: 	http://gstreamer.freedesktop.org/src/gstreamer/%{oname}-%{version}.tar.bz2
 Source1:	gstreamer.prov
 Patch0:		gstreamer-inspect-rpm-format.patch
-BuildRoot: 	%{_tmppath}/%{name}-%{version}-root
 BuildRequires: 	glib2-devel >= %_glib2
 BuildRequires: 	libxml2-devel >= %_libxml2
 BuildRequires:  gobject-introspection-devel
@@ -135,7 +134,6 @@ cd tests/check
 make check
 
 %install  
-rm -rf $RPM_BUILD_ROOT  installed-docs
 %makeinstall_std
 mkdir -p $RPM_BUILD_ROOT%{_var}/cache/%{oname}-%{majorminor}
 #clean the files we don't want to install 
@@ -151,9 +149,6 @@ rm -f %buildroot/%{_bindir}/gst-xmlinspect
 rm -f %buildroot/%{_bindir}/gst-xmllaunch
 
 %find_lang %oname-%majorminor
-%if %build_docs
-mv %buildroot%_datadir/doc/%oname-%majorminor/ installed-docs
-%endif
 
 #gw really remove rpath for rpmlint
 chrpath -d %buildroot{%_bindir/gst-{inspect,launch,typefind,xmlinspect,xmllaunch}-0.10,%_libdir/{*.so,%{oname}-%{majorminor}/*.so}}
@@ -161,19 +156,7 @@ chrpath -d %buildroot{%_bindir/gst-{inspect,launch,typefind,xmlinspect,xmllaunch
 # Add the provides script
 install -m0755 -D %{SOURCE1} $RPM_BUILD_ROOT%{_prefix}/lib/rpm/mandriva/gstreamer.prov
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
-%if %mdkversion < 200900
-%post -n %libname -p /sbin/ldconfig
-%endif
-
-%if %mdkversion < 200900
-%postun -n %libname -p /sbin/ldconfig
-%endif
-
 %files tools -f %oname-%majorminor.lang
-%defattr(-, root, root)
 %doc AUTHORS COPYING README NEWS
 %dir %{_var}/cache/%{oname}-%{majorminor}
 %{_bindir}/gst-feedback-%majorminor
@@ -201,7 +184,6 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %files -n %libname
-%defattr(-, root, root)
 %dir %{_libdir}/%{oname}-%{majorminor}
 %{_libdir}/libgstbase-%majorminor.so.*
 %{_libdir}/libgstcheck-%majorminor.so.*
@@ -220,10 +202,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %files -n %libnamedev
-%defattr(-, root, root)
 %doc ChangeLog
 %if %build_docs
-%doc installed-docs/*
+%doc %{_datadir}/doc/%{oname}-%{majorminor}
 %endif
 %{_prefix}/lib/rpm/mandriva/gstreamer.prov
 %dir %{_includedir}/%{oname}-%{majorminor}
