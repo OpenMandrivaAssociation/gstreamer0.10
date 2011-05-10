@@ -9,7 +9,7 @@
 %define 	_libxml2	2.4.0
 %define build_docs 1
 
-Name:		%{vname}
+Name:		gstreamer%{major}
 Summary: 	GStreamer Streaming-media framework runtime
 Version: 	0.10.33
 Release: 	1
