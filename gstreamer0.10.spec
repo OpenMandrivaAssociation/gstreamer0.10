@@ -11,7 +11,7 @@
 
 Name:		gstreamer%{major}
 Summary: 	GStreamer Streaming-media framework runtime
-Version: 	0.10.33
+Version: 	0.10.34
 Release: 	1
 License: 	LGPLv2+
 Group: 		Sound
