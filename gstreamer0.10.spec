@@ -11,12 +11,12 @@
 
 Name:		gstreamer%{major}
 Summary: 	GStreamer Streaming-media framework runtime
-Version: 	0.10.34
+Version: 	0.10.35
 Release: 	1
 License: 	LGPLv2+
 Group: 		Sound
 URL:            http://gstreamer.freedesktop.org/
-Source0: 	http://gstreamer.freedesktop.org/src/gstreamer/%{oname}-%{version}.tar.bz2
+Source0: 	ftp://ftp.gnome.org/pub/GNOME/sources/%{oname}/%{oname}-%{version}.tar.xz
 Source1:	gstreamer.prov
 Patch0:		gstreamer-inspect-rpm-format.patch
 BuildRequires: 	glib2-devel >= %_glib2
