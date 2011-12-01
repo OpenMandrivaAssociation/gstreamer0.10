@@ -135,10 +135,10 @@ make check
 
 %install  
 %makeinstall_std
-mkdir -p $RPM_BUILD_ROOT%{_var}/cache/%{oname}-%{majorminor}
+mkdir -p %{buildroot}%{_var}/cache/%{oname}-%{majorminor}
 #clean the files we don't want to install 
-rm -f $RPM_BUILD_ROOT%{_libdir}/%{oname}-%{majorminor}/*.la
-rm -f $RPM_BUILD_ROOT%{_libdir}/%{oname}-%{majorminor}/*.a
+rm -f %{buildroot}%{_libdir}/%{oname}-%{majorminor}/*.la
+rm -f %{buildroot}%{_libdir}/%{oname}-%{majorminor}/*.a
 rm -f %buildroot/%_libdir/*a 
 rm -f %buildroot/%{_bindir}/gst-feedback
 rm -f %buildroot/%{_bindir}/gst-inspect
@@ -154,7 +154,7 @@ rm -f %buildroot/%{_bindir}/gst-xmllaunch
 chrpath -d %buildroot{%_bindir/gst-{inspect,launch,typefind,xmlinspect,xmllaunch}-0.10,%_libdir/{*.so,%{oname}-%{majorminor}/*.so}}
 
 # Add the provides script
-install -m0755 -D %{SOURCE1} $RPM_BUILD_ROOT%{_prefix}/lib/rpm/mandriva/gstreamer.prov
+install -m0755 -D %{SOURCE1} %{buildroot}%{_prefix}/lib/rpm/mandriva/gstreamer.prov
 
 %files tools -f %oname-%majorminor.lang
 %doc AUTHORS COPYING README NEWS
