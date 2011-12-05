@@ -174,7 +174,7 @@ applications and plugins for GStreamer.
 %endif
 	--with-html-dir=%{_datadir}/gtk-doc/html
 
-make
+%make
 
 %check
 cd tests/check
