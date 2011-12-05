@@ -17,7 +17,7 @@
 Name:		gstreamer%{api}
 Summary: 	GStreamer Streaming-media framework runtime
 Version: 	0.10.35
-Release: 	2
+Release: 	3
 License: 	LGPLv2+
 Group: 		Sound
 URL:		http://gstreamer.freedesktop.org/
@@ -135,6 +135,11 @@ GObject Introspection interface libraries for %{name}.
 Summary: Libraries and include files for GStreamer streaming-media framework
 Group: Development/C
 Requires: %{libname} = %{version}-%{release}
+Requires: %{libgstbase} = %{version}-%{release}
+Requires: %{libgstcheck} = %{version}-%{release}
+Requires: %{libgstcontroller} = %{version}-%{release}
+Requires: %{libgstdataprocol} = %{version}-%{release}
+Requires: %{libgstnet} = %{version}-%{release}
 Requires: rpm-mandriva-setup-build >= 1.113
 Provides: libgstreamer-devel = %{version}-%{release}
 Provides: gstreamer%{api}-devel = %{version}-%{release}
