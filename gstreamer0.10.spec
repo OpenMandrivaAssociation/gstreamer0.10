@@ -12,7 +12,7 @@
 %define girname		%mklibname gst-gir %{api}
 %define develname	%mklibname -d %{name}
 
-%define build_docs 1
+%define build_docs 0
 
 Name:		gstreamer%{api}
 Summary: 	GStreamer Streaming-media framework runtime
@@ -272,27 +272,20 @@ install -m0755 -D %{SOURCE1} %{buildroot}%{_prefix}/lib/rpm/mandriva/gstreamer.p
 %{_libdir}/libgstreamer-%{api}.so
 %{_libdir}/libgstnet-%{api}.so
 %{_libdir}/libgstcontroller-%{api}.so
-%{_datadir}/aclocal/gst-element-check-%{api}.m4
 %{_libdir}/pkgconfig/gstreamer-%{api}.pc
 %{_libdir}/pkgconfig/gstreamer-base-%{api}.pc
 %{_libdir}/pkgconfig/gstreamer-check-%{api}.pc
 %{_libdir}/pkgconfig/gstreamer-dataprotocol-%{api}.pc
 %{_libdir}/pkgconfig/gstreamer-net-%{api}.pc
 %{_libdir}/pkgconfig/gstreamer-controller-%{api}.pc
-%if 1
-## we specify the API docs as regular files since %docs doesn't fail when
-#  files aren't found anymore for RPM >= 4
-#  we list all of the files we really need to trap incomplete doc builds
-#  then we catch the rest with *, you can safely ignore the errors from this
-## gstreamer API
+%{_datadir}/aclocal/gst-element-check-%{api}.m4
 %dir %{_datadir}/gtk-doc/html/%{oname}-%{api}
-%{_datadir}/gtk-doc/html/%{oname}-%{api}/
-## gstreamer-libs API
 %dir %{_datadir}/gtk-doc/html/%{oname}-libs-%{api}
+%dir %{_datadir}/gtk-doc/html/%{oname}-plugins-%{api}
+%{_datadir}/gtk-doc/html/%{oname}-%{api}/
 %{_datadir}/gtk-doc/html/%{oname}-libs-%{api}/
-## this catches all of the rest of the docs we might have forgotten
-%{_datadir}/gtk-doc/html/*
-%endif
+%{_datadir}/gtk-doc/html/%{oname}-plugins-%{api}
+
 %{_datadir}/gir-1.0/Gst-%{api}.gir
 %{_datadir}/gir-1.0/GstBase-%{api}.gir
 %{_datadir}/gir-1.0/GstCheck-%{api}.gir
