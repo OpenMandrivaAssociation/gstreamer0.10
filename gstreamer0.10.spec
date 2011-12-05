@@ -1,26 +1,32 @@
 %define oname gstreamer
 %define vname %{oname}10
 
-%define major 0.10
-%define majorminor 0.10
-%define libname %mklibname %{name}_ %{major}
-%define libnamedev %mklibname -d %{name}
-%define 	_glib2		2.2.0
-%define 	_libxml2	2.4.0
+%define major	 0
+%define api		 0.10
+%define libname		%mklibname %{name}_ %{major}
+%define libgstbase	%mklibname gstbase%{api}_ %{major}
+%define libgstcheck	%mklibname gstcheck%{api}_ %{major}
+%define libgstcontroller	%mklibname gstcontroller%{api}_ %{major}
+%define libgstdataprocol	%mklibname gstdataprocol%{api}_ %{major}
+%define libgstnet	%mklibname gstnet%{api}_ %{major}
+%define girname		%mklibname gst-gir %{api}
+%define develname	%mklibname -d %{name}
+
 %define build_docs 1
 
-Name:		gstreamer%{major}
+Name:		gstreamer%{api}
 Summary: 	GStreamer Streaming-media framework runtime
 Version: 	0.10.35
-Release: 	1
+Release: 	2
 License: 	LGPLv2+
 Group: 		Sound
-URL:            http://gstreamer.freedesktop.org/
+URL:		http://gstreamer.freedesktop.org/
 Source0: 	ftp://ftp.gnome.org/pub/GNOME/sources/%{oname}/%{oname}-%{version}.tar.xz
 Source1:	gstreamer.prov
 Patch0:		gstreamer-inspect-rpm-format.patch
-BuildRequires: 	glib2-devel >= %_glib2
-BuildRequires: 	libxml2-devel >= %_libxml2
+
+BuildRequires: 	glib2-devel >= 2.2.0
+BuildRequires: 	libxml2-devel >= 2.4.0
 BuildRequires:  gobject-introspection-devel
 BuildRequires:	popt-devel
 BuildRequires:	gettext-devel
@@ -54,9 +60,9 @@ plugins.
 %package tools
 Summary: GStreamer Streaming-media framework runtime
 Group: 	Sound
-Provides: %vname-tools = %version-%release
-Provides: gstreamer
-Obsoletes: gstreamer
+Provides: %{vname}-tools = %{version}-%{release}
+Conflicts:	%mklibname %{oname} 0.10 0.10 < 0.10.35-2
+%rename gstreamer
 
 %description tools
 GStreamer is a streaming-media framework, based on graphs of filters which
@@ -66,66 +72,102 @@ else media-related.  Its plugin-based architecture means that new data
 types or processing capabilities can be added simply by installing new 
 plugins.
 
-%package -n %libname
-Summary: Libraries for GStreamer streaming-media framework
-Group: System/Libraries
-Provides: libgstreamer%{majorminor} = %version-%release
-Conflicts: gir-repository < 0.6.5-3
+%package -n %{libname}
+Summary:	Library for GStreamer streaming-media framework
+Group:		System/Libraries
+Provides:	libgstreamer%{api} = %{version}-%{release}
+Obsoletes:	%mklibname %{oname} 0.10 0.10
 
-%description -n %libname
-GStreamer is a streaming-media framework, based on graphs of filters which
-operate on media data. Applications using this library can do anything
-from real-time sound processing to playing videos, and just about anything
-else media-related.  Its plugin-based architecture means that new data
-types or processing capabilities can be added simply by installing new
-plugins.
+%description -n %{libname}
+This package contains the library for %{name}.
 
-This package contains the libraries.
+%package -n %{libgstbase}
+Summary:	Library for GStreamer streaming-media framework
+Group:		System/Libraries
+Conflicts:	%mklibname %{oname} 0.10 0.10 < 0.10.35-2
 
-%package -n %libnamedev
+%description -n %{libgstbase}
+This package contains the library for %{name}base.
+
+%package -n %{libgstcheck}
+Summary:	Library for GStreamer streaming-media framework
+Group:		System/Libraries
+Conflicts:	%mklibname %{oname} 0.10 0.10 < 0.10.35-2
+
+%description -n %{libgstcheck}
+This package contains the library for %{name}check.
+
+%package -n %{libgstcontroller}
+Summary:	Library for GStreamer streaming-media framework
+Group:		System/Libraries
+Conflicts:	%mklibname %{oname} 0.10 0.10 < 0.10.35-2
+
+%description -n %{libgstcontroller}
+This package contains the library for %{name}controller.
+
+%package -n %{libgstdataprocol}
+Summary:	Library for GStreamer streaming-media framework
+Group:		System/Libraries
+Conflicts:	%mklibname %{oname} 0.10 0.10 < 0.10.35-2
+
+%description -n %{libgstdataprocol}
+This package contains the library for %{name}dataprocol.
+
+%package -n %{libgstnet}
+Summary:	Library for GStreamer streaming-media framework
+Group:		System/Libraries
+Conflicts:	%mklibname %{oname} 0.10 0.10 < 0.10.35-2
+
+%description -n %{libgstnet}
+This package contains the library for %{name}net.
+
+%package -n %{girname}
+Summary:	GObject Introspection interface libraries for %{name}
+Group:		System/Libraries
+Requires:	%{libname} = %{version}-%{release}
+Conflicts:	%mklibname %{oname} 0.10 0.10 < 0.10.35-2
+Conflicts:	gir-repository < 0.6.5-3
+
+%description -n %{girname}
+GObject Introspection interface libraries for %{name}.
+
+%package -n %{develname}
 Summary: Libraries and include files for GStreamer streaming-media framework
 Group: Development/C
-Conflicts: gir-repository < 0.6.5-3
-Requires: %{libname} = %{version}
-Requires: libglib2-devel
-Requires: libxml2-devel
+Requires: %{libname} = %{version}-%{release}
 Requires: rpm-mandriva-setup-build >= 1.113
-Requires: %{name}-tools = %{version}
-Provides: libgstreamer-devel = %version-%release
-Provides: gstreamer%{majorminor}-devel = %version-%release
+Provides: libgstreamer-devel = %{version}-%{release}
+Provides: gstreamer%{api}-devel = %{version}-%{release}
 Obsoletes: %mklibname -d %{name}_ 0.10
+Conflicts: gir-repository < 0.6.5-3
 
-%description -n %libnamedev
-GStreamer is a streaming-media framework, based on graphs of filters which
-operate on media data. Applications using this library can do anything
-from real-time sound processing to playing videos, and just about anything
-else media-related.  Its plugin-based architecture means that new data
-types or processing capabilities can be added simply by installing new   
-plugins.
-
+%description -n %{develname}
 This package contains the libraries and includes files necessary to develop
 applications and plugins for GStreamer.
 
-
 %prep
-%setup -q -n %oname-%version
+%setup -qn %{oname}-%{version}
 %apply_patches
-#automake
 
 %build
-%configure2_5x  --enable-debug --disable-dependency-tracking \
-  --with-package-name='Mandriva %name package' \
-  --with-package-origin='http://www.mandriva.com/' \
-  --disable-tests --disable-examples --disable-rpath \
+%configure2_5x \
+	--disable-static \
+	--enable-debug \
+	--disable-dependency-tracking \
+	--with-package-name='Mandriva %{name} package' \
+	--with-package-origin='http://www.mandriva.com/' \
+	--disable-tests --disable-examples --disable-rpath \
 %if %build_docs
-  --enable-docbook --enable-gtk-doc \
+	--enable-docbook \
+	--enable-gtk-doc \
 %else	
-  --disable-docbook --disable-gtk-doc \
+	--disable-docbook \
+	--disable-gtk-doc \
 %endif
 %ifarch %mips
-  --disable-valgrind \
+	--disable-valgrind \
 %endif
- --with-html-dir=%_datadir/gtk-doc/html
+	--with-html-dir=%{_datadir}/gtk-doc/html
 
 make
 
@@ -135,133 +177,133 @@ make check
 
 %install  
 %makeinstall_std
-mkdir -p %{buildroot}%{_var}/cache/%{oname}-%{majorminor}
+mkdir -p %{buildroot}%{_var}/cache/%{oname}-%{api}
 #clean the files we don't want to install 
-rm -f %{buildroot}%{_libdir}/%{oname}-%{majorminor}/*.la
-rm -f %{buildroot}%{_libdir}/%{oname}-%{majorminor}/*.a
-rm -f %buildroot/%_libdir/*a 
-rm -f %buildroot/%{_bindir}/gst-feedback
-rm -f %buildroot/%{_bindir}/gst-inspect
-rm -f %buildroot/%{_bindir}/gst-launch
-rm -f %buildroot/%{_bindir}/gst-md5sum
-rm -f %buildroot/%{_bindir}/gst-typefind
-rm -f %buildroot/%{_bindir}/gst-xmlinspect
-rm -f %buildroot/%{_bindir}/gst-xmllaunch
+rm -f %{buildroot}%{_libdir}/%{oname}-%{api}/*.la
+rm -f %{buildroot}%{_libdir}/%{oname}-%{api}/*.a
+rm -f %{buildroot}/%{_libdir}/*a 
+rm -f %{buildroot}/%{_bindir}/gst-feedback
+rm -f %{buildroot}/%{_bindir}/gst-inspect
+rm -f %{buildroot}/%{_bindir}/gst-launch
+rm -f %{buildroot}/%{_bindir}/gst-md5sum
+rm -f %{buildroot}/%{_bindir}/gst-typefind
+rm -f %{buildroot}/%{_bindir}/gst-xmlinspect
+rm -f %{buildroot}/%{_bindir}/gst-xmllaunch
 
-%find_lang %oname-%majorminor
+%find_lang %{oname}-%{api}
 
 #gw really remove rpath for rpmlint
-chrpath -d %buildroot{%_bindir/gst-{inspect,launch,typefind,xmlinspect,xmllaunch}-0.10,%_libdir/{*.so,%{oname}-%{majorminor}/*.so}}
+chrpath -d %{buildroot}{%{_bindir}/gst-{inspect,launch,typefind,xmlinspect,xmllaunch}-0.10,%{_libdir}/{*.so,%{oname}-%{api}/*.so}}
 
 # Add the provides script
 install -m0755 -D %{SOURCE1} %{buildroot}%{_prefix}/lib/rpm/mandriva/gstreamer.prov
 
-%files tools -f %oname-%majorminor.lang
+%files tools -f %{oname}-%{api}.lang
 %doc AUTHORS COPYING README NEWS
-%dir %{_var}/cache/%{oname}-%{majorminor}
-%{_bindir}/gst-feedback-%majorminor
-%{_bindir}/gst-inspect-%majorminor
-%{_bindir}/gst-launch-%majorminor
-%{_bindir}/gst-typefind-%majorminor
-%{_bindir}/gst-xmlinspect-%majorminor
-%{_bindir}/gst-xmllaunch-%majorminor
-%{_mandir}/man1/gst-feedback-%majorminor.1*
-%{_mandir}/man1/gst-inspect-%majorminor.1*
-%{_mandir}/man1/gst-launch-%majorminor.1*
-%{_mandir}/man1/gst-typefind-%majorminor.1*
-%{_mandir}/man1/gst-xmlinspect-%majorminor.1*
-%{_mandir}/man1/gst-xmllaunch-%majorminor.1*
-# gw this must always be in a package named gstreamer-tools
-#%files -n gstreamer-tools
-#%defattr(-, root, root, -)
-#%{_bindir}/gst-feedback
-#%{_bindir}/gst-inspect
-#%{_bindir}/gst-launch
-#%{_bindir}/gst-md5sum
-#%{_bindir}/gst-typefind
-#%{_bindir}/gst-xmlinspect
-#%{_bindir}/gst-xmllaunch
+%dir %{_var}/cache/%{oname}-%{api}
+%{_bindir}/gst-feedback-%{api}
+%{_bindir}/gst-inspect-%{api}
+%{_bindir}/gst-launch-%{api}
+%{_bindir}/gst-typefind-%{api}
+%{_bindir}/gst-xmlinspect-%{api}
+%{_bindir}/gst-xmllaunch-%{api}
+%dir %{_libdir}/%{oname}-%{api}
+%{_libdir}/%{oname}-%{api}/gst-plugin-scanner
+%{_libdir}/%{oname}-%{api}/libgstcoreelements.so
+%{_libdir}/%{oname}-%{api}/libgstcoreindexers.so
+%{_mandir}/man1/gst-feedback-%{api}.1*
+%{_mandir}/man1/gst-inspect-%{api}.1*
+%{_mandir}/man1/gst-launch-%{api}.1*
+%{_mandir}/man1/gst-typefind-%{api}.1*
+%{_mandir}/man1/gst-xmlinspect-%{api}.1*
+%{_mandir}/man1/gst-xmllaunch-%{api}.1*
+
+%files -n %{libname}
+%{_libdir}/libgstreamer-%{api}.so.%{major}*
+
+%files -n %{libgstbase}
+%{_libdir}/libgstbase-%{api}.so.%{major}*
+
+%files -n %{libgstcheck}
+%{_libdir}/libgstcheck-%{api}.so.%{major}*
+
+%files -n %{libgstcontroller}
+%{_libdir}/libgstcontroller-%{api}.so.%{major}*
+
+%files -n %{libgstdataprocol}
+%{_libdir}/libgstdataprotocol-%{api}.so.%{major}*
+
+%files -n %{libgstnet}
+%{_libdir}/libgstnet-%{api}.so.%{major}*
+
+%files -n %{girname}
+%{_libdir}/girepository-1.0/Gst-%{api}.typelib
+%{_libdir}/girepository-1.0/GstBase-%{api}.typelib
+%{_libdir}/girepository-1.0/GstCheck-%{api}.typelib
+%{_libdir}/girepository-1.0/GstController-%{api}.typelib
+%{_libdir}/girepository-1.0/GstNet-%{api}.typelib
 
 
-%files -n %libname
-%dir %{_libdir}/%{oname}-%{majorminor}
-%{_libdir}/libgstbase-%majorminor.so.*
-%{_libdir}/libgstcheck-%majorminor.so.*
-%{_libdir}/libgstdataprotocol-%majorminor.so.*
-%{_libdir}/libgstreamer-%{majorminor}.so.*
-%{_libdir}/libgstnet-%{majorminor}.so.*
-%{_libdir}/libgstcontroller-%{majorminor}.so.*
-%{_libdir}/%{oname}-%{majorminor}/gst-plugin-scanner
-%{_libdir}/%{oname}-%{majorminor}/libgstcoreelements.so
-%{_libdir}/%{oname}-%{majorminor}/libgstcoreindexers.so
-%_libdir/girepository-1.0/Gst-%majorminor.typelib
-%_libdir/girepository-1.0/GstBase-%majorminor.typelib
-%_libdir/girepository-1.0/GstCheck-%majorminor.typelib
-%_libdir/girepository-1.0/GstController-%majorminor.typelib
-%_libdir/girepository-1.0/GstNet-%majorminor.typelib
-
-
-%files -n %libnamedev
+%files -n %{develname}
 %doc ChangeLog
 %if %build_docs
-%doc %{_datadir}/doc/%{oname}-%{majorminor}
+%doc %{_datadir}/doc/%{oname}-%{api}
 %endif
 %{_prefix}/lib/rpm/mandriva/gstreamer.prov
-%dir %{_includedir}/%{oname}-%{majorminor}
-%dir %{_includedir}/%{oname}-%{majorminor}/gst
-%{_includedir}/%{oname}-%{majorminor}/gst/*.h
-%dir %{_includedir}/%{oname}-%{majorminor}/gst/base/
-%{_includedir}/%{oname}-%{majorminor}/gst/base/*.h
-%{_includedir}/%{oname}-%{majorminor}/gst/check/
-%dir %{_includedir}/%{oname}-%{majorminor}/gst/controller/
-%{_includedir}/%{oname}-%{majorminor}/gst/controller/*.h
-%dir %{_includedir}/%{oname}-%{majorminor}/gst/dataprotocol/
-%{_includedir}/%{oname}-%{majorminor}/gst/dataprotocol/*.h
-%{_includedir}/%{oname}-%{majorminor}/gst/net/
-%{_libdir}/libgstbase-%majorminor.so
-%{_libdir}/libgstcheck-%majorminor.so
-%{_libdir}/libgstdataprotocol-%majorminor.so
-%{_libdir}/libgstreamer-%{majorminor}.so
-%{_libdir}/libgstnet-%{majorminor}.so
-%{_libdir}/libgstcontroller-%{majorminor}.so
-%{_datadir}/aclocal/gst-element-check-%{majorminor}.m4
-%{_libdir}/pkgconfig/gstreamer-%{majorminor}.pc
-%{_libdir}/pkgconfig/gstreamer-base-%majorminor.pc
-%{_libdir}/pkgconfig/gstreamer-check-%majorminor.pc
-%{_libdir}/pkgconfig/gstreamer-dataprotocol-%majorminor.pc
-%{_libdir}/pkgconfig/gstreamer-net-%majorminor.pc
-%{_libdir}/pkgconfig/gstreamer-controller-%{majorminor}.pc
+%dir %{_includedir}/%{oname}-%{api}
+%dir %{_includedir}/%{oname}-%{api}/gst
+%{_includedir}/%{oname}-%{api}/gst/*.h
+%dir %{_includedir}/%{oname}-%{api}/gst/base/
+%{_includedir}/%{oname}-%{api}/gst/base/*.h
+%{_includedir}/%{oname}-%{api}/gst/check/
+%dir %{_includedir}/%{oname}-%{api}/gst/controller/
+%{_includedir}/%{oname}-%{api}/gst/controller/*.h
+%dir %{_includedir}/%{oname}-%{api}/gst/dataprotocol/
+%{_includedir}/%{oname}-%{api}/gst/dataprotocol/*.h
+%{_includedir}/%{oname}-%{api}/gst/net/
+%{_libdir}/libgstbase-%{api}.so
+%{_libdir}/libgstcheck-%{api}.so
+%{_libdir}/libgstdataprotocol-%{api}.so
+%{_libdir}/libgstreamer-%{api}.so
+%{_libdir}/libgstnet-%{api}.so
+%{_libdir}/libgstcontroller-%{api}.so
+%{_datadir}/aclocal/gst-element-check-%{api}.m4
+%{_libdir}/pkgconfig/gstreamer-%{api}.pc
+%{_libdir}/pkgconfig/gstreamer-base-%{api}.pc
+%{_libdir}/pkgconfig/gstreamer-check-%{api}.pc
+%{_libdir}/pkgconfig/gstreamer-dataprotocol-%{api}.pc
+%{_libdir}/pkgconfig/gstreamer-net-%{api}.pc
+%{_libdir}/pkgconfig/gstreamer-controller-%{api}.pc
 %if 1
 ## we specify the API docs as regular files since %docs doesn't fail when
 #  files aren't found anymore for RPM >= 4
 #  we list all of the files we really need to trap incomplete doc builds
 #  then we catch the rest with *, you can safely ignore the errors from this
 ## gstreamer API
-%dir %{_datadir}/gtk-doc/html/%{oname}-%{majorminor}
-%{_datadir}/gtk-doc/html/%{oname}-%{majorminor}/%{oname}-%{majorminor}.devhelp
-%{_datadir}/gtk-doc/html/%{oname}-%{majorminor}/GstBin.html
-%{_datadir}/gtk-doc/html/%{oname}-%{majorminor}/GstClock.html
-%{_datadir}/gtk-doc/html/%{oname}-%{majorminor}/GstObject.html
-%{_datadir}/gtk-doc/html/%{oname}-%{majorminor}/GstPipeline.html
-%{_datadir}/gtk-doc/html/%{oname}-%{majorminor}/GstPluginFeature.html
-%{_datadir}/gtk-doc/html/%{oname}-%{majorminor}/%{oname}.html
-%{_datadir}/gtk-doc/html/%{oname}-%{majorminor}/%{oname}-support.html
-%{_datadir}/gtk-doc/html/%{oname}-%{majorminor}/GstXML.html
-%{_datadir}/gtk-doc/html/%{oname}-%{majorminor}/index.html
-%{_datadir}/gtk-doc/html/%{oname}-%{majorminor}/index.sgml
+%dir %{_datadir}/gtk-doc/html/%{oname}-%{api}
+%{_datadir}/gtk-doc/html/%{oname}-%{api}/%{oname}-%{api}.devhelp
+%{_datadir}/gtk-doc/html/%{oname}-%{api}/GstBin.html
+%{_datadir}/gtk-doc/html/%{oname}-%{api}/GstClock.html
+%{_datadir}/gtk-doc/html/%{oname}-%{api}/GstObject.html
+%{_datadir}/gtk-doc/html/%{oname}-%{api}/GstPipeline.html
+%{_datadir}/gtk-doc/html/%{oname}-%{api}/GstPluginFeature.html
+%{_datadir}/gtk-doc/html/%{oname}-%{api}/%{oname}.html
+%{_datadir}/gtk-doc/html/%{oname}-%{api}/%{oname}-support.html
+%{_datadir}/gtk-doc/html/%{oname}-%{api}/GstXML.html
+%{_datadir}/gtk-doc/html/%{oname}-%{api}/index.html
+%{_datadir}/gtk-doc/html/%{oname}-%{api}/index.sgml
 ## gstreamer-libs API
-%dir %{_datadir}/gtk-doc/html/%{oname}-libs-%{majorminor}
-%{_datadir}/gtk-doc/html/%{oname}-libs-%{majorminor}/%{oname}-libs-%{majorminor}.devhelp
-%{_datadir}/gtk-doc/html/%{oname}-libs-%{majorminor}/%{oname}-libs.html
-%{_datadir}/gtk-doc/html/%{oname}-libs-%{majorminor}/index.html
-%{_datadir}/gtk-doc/html/%{oname}-libs-%{majorminor}/index.sgml
+%dir %{_datadir}/gtk-doc/html/%{oname}-libs-%{api}
+%{_datadir}/gtk-doc/html/%{oname}-libs-%{api}/%{oname}-libs-%{api}.devhelp
+%{_datadir}/gtk-doc/html/%{oname}-libs-%{api}/%{oname}-libs.html
+%{_datadir}/gtk-doc/html/%{oname}-libs-%{api}/index.html
+%{_datadir}/gtk-doc/html/%{oname}-libs-%{api}/index.sgml
 ## this catches all of the rest of the docs we might have forgotten
 %{_datadir}/gtk-doc/html/*
 %endif
-%_datadir/gir-1.0/Gst-%majorminor.gir
-%_datadir/gir-1.0/GstBase-%majorminor.gir
-%_datadir/gir-1.0/GstCheck-%majorminor.gir
-%_datadir/gir-1.0/GstController-%majorminor.gir
-%_datadir/gir-1.0/GstNet-%majorminor.gir
-
+%{_datadir}/gir-1.0/Gst-%{api}.gir
+%{_datadir}/gir-1.0/GstBase-%{api}.gir
+%{_datadir}/gir-1.0/GstCheck-%{api}.gir
+%{_datadir}/gir-1.0/GstController-%{api}.gir
+%{_datadir}/gir-1.0/GstNet-%{api}.gir
 
