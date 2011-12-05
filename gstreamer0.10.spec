@@ -17,9 +17,9 @@
 Name:		gstreamer%{api}
 Summary: 	GStreamer Streaming-media framework runtime
 Version: 	0.10.35
-Release: 	3
+Release: 	2
 License: 	LGPLv2+
-Group: 		Sound
+Group:		Sound
 URL:		http://gstreamer.freedesktop.org/
 Source0: 	ftp://ftp.gnome.org/pub/GNOME/sources/%{oname}/%{oname}-%{version}.tar.xz
 Source1:	gstreamer.prov
@@ -286,23 +286,10 @@ install -m0755 -D %{SOURCE1} %{buildroot}%{_prefix}/lib/rpm/mandriva/gstreamer.p
 #  then we catch the rest with *, you can safely ignore the errors from this
 ## gstreamer API
 %dir %{_datadir}/gtk-doc/html/%{oname}-%{api}
-%{_datadir}/gtk-doc/html/%{oname}-%{api}/%{oname}-%{api}.devhelp
-%{_datadir}/gtk-doc/html/%{oname}-%{api}/GstBin.html
-%{_datadir}/gtk-doc/html/%{oname}-%{api}/GstClock.html
-%{_datadir}/gtk-doc/html/%{oname}-%{api}/GstObject.html
-%{_datadir}/gtk-doc/html/%{oname}-%{api}/GstPipeline.html
-%{_datadir}/gtk-doc/html/%{oname}-%{api}/GstPluginFeature.html
-%{_datadir}/gtk-doc/html/%{oname}-%{api}/%{oname}.html
-%{_datadir}/gtk-doc/html/%{oname}-%{api}/%{oname}-support.html
-%{_datadir}/gtk-doc/html/%{oname}-%{api}/GstXML.html
-%{_datadir}/gtk-doc/html/%{oname}-%{api}/index.html
-%{_datadir}/gtk-doc/html/%{oname}-%{api}/index.sgml
+%{_datadir}/gtk-doc/html/%{oname}-%{api}/
 ## gstreamer-libs API
 %dir %{_datadir}/gtk-doc/html/%{oname}-libs-%{api}
-%{_datadir}/gtk-doc/html/%{oname}-libs-%{api}/%{oname}-libs-%{api}.devhelp
-%{_datadir}/gtk-doc/html/%{oname}-libs-%{api}/%{oname}-libs.html
-%{_datadir}/gtk-doc/html/%{oname}-libs-%{api}/index.html
-%{_datadir}/gtk-doc/html/%{oname}-libs-%{api}/index.sgml
+%{_datadir}/gtk-doc/html/%{oname}-libs-%{api}/
 ## this catches all of the rest of the docs we might have forgotten
 %{_datadir}/gtk-doc/html/*
 %endif
