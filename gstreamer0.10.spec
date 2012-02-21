@@ -279,9 +279,6 @@ install -m0755 -D %{SOURCE1} %{buildroot}%{_prefix}/lib/rpm/mandriva/gstreamer.p
 %{_libdir}/pkgconfig/gstreamer-net-%{api}.pc
 %{_libdir}/pkgconfig/gstreamer-controller-%{api}.pc
 %{_datadir}/aclocal/gst-element-check-%{api}.m4
-%dir %{_datadir}/gtk-doc/html/%{oname}-%{api}
-%dir %{_datadir}/gtk-doc/html/%{oname}-libs-%{api}
-%dir %{_datadir}/gtk-doc/html/%{oname}-plugins-%{api}
 %{_datadir}/gtk-doc/html/%{oname}-%{api}/
 %{_datadir}/gtk-doc/html/%{oname}-libs-%{api}/
 %{_datadir}/gtk-doc/html/%{oname}-plugins-%{api}
