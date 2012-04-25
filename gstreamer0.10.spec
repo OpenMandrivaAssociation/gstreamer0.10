@@ -17,36 +17,36 @@
 Name:		gstreamer%{api}
 Summary: 	GStreamer Streaming-media framework runtime
 Version: 	0.10.36
-Release: 	1
+Release: 	2
 License: 	LGPLv2+
 Group:		Sound
 URL:		http://gstreamer.freedesktop.org/
-Source0: 	ftp://ftp.gnome.org/pub/GNOME/sources/%{oname}/%{oname}-%{version}.tar.xz
+Source0: 	ftp://ftp.gnome.org/pub/GNOME/sources/gstreamer/%{api}/%{oname}-%{version}.tar.xz
 Source1:	gstreamer.prov
 Patch0:		gstreamer-inspect-rpm-format.patch
 
-BuildRequires: 	glib2-devel >= 2.2.0
-BuildRequires: 	libxml2-devel >= 2.4.0
-BuildRequires:  gobject-introspection-devel
-BuildRequires:	popt-devel
+BuildRequires:	bison
+BuildRequires:	chrpath
+BuildRequires:	flex
 BuildRequires:	gettext-devel
-BuildRequires:  libcheck-devel
+BuildRequires:	pkgconfig(check)
+BuildRequires:	pkgconfig(glib-2.0)
+BuildRequires:	pkgconfig(gobject-introspection-1.0)
+BuildRequires:	pkgconfig(libxml-2.0)
+BuildRequires:	pkgconfig(popt)
 %ifnarch %arm %mips
-BuildRequires:  valgrind
+BuildRequires:	valgrind
 %endif
-BuildRequires:  chrpath
 %ifarch %ix86 
-BuildRequires: 	nasm => 0.90
+BuildRequires:	nasm => 0.90
 %endif
-BuildRequires: 	bison
-BuildRequires:  flex
-%if %build_docs
-BuildRequires: 	gtk-doc >= 0.7
-BuildRequires: 	transfig
-BuildRequires:  docbook-dtd42-xml
-BuildRequires:  docbook-dtd412-xml
-BuildRequires:  ghostscript
-BuildRequires:  python-pyxml
+%if %{build_docs}
+BuildRequires:	gtk-doc >= 0.7
+BuildRequires:	transfig
+BuildRequires:	docbook-dtd42-xml
+BuildRequires:	docbook-dtd412-xml
+BuildRequires:	ghostscript
+BuildRequires:	python-pyxml
 %endif
 
 %description
@@ -58,9 +58,9 @@ types or processing capabilities can be added simply by installing new
 plugins.
 
 %package tools
-Summary: GStreamer Streaming-media framework runtime
-Group: 	Sound
-Provides: %{vname}-tools = %{version}-%{release}
+Summary:	GStreamer Streaming-media framework runtime
+Group:		Sound
+Provides:	%{vname}-tools = %{version}-%{release}
 Conflicts:	%mklibname %{oname} 0.10 0.10 < 0.10.35-2
 %rename gstreamer
 
@@ -124,7 +124,6 @@ This package contains the library for %{name}net.
 %package -n %{girname}
 Summary:	GObject Introspection interface libraries for %{name}
 Group:		System/Libraries
-Requires:	%{libname} = %{version}-%{release}
 Conflicts:	%mklibname %{oname} 0.10 0.10 < 0.10.35-2
 Conflicts:	gir-repository < 0.6.5-3
 
@@ -140,6 +139,7 @@ Requires: %{libgstcheck} = %{version}-%{release}
 Requires: %{libgstcontroller} = %{version}-%{release}
 Requires: %{libgstdataprocol} = %{version}-%{release}
 Requires: %{libgstnet} = %{version}-%{release}
+Requires: %{girname} = %{version}-%{release}
 Requires: rpm-mandriva-setup-build >= 1.113
 Provides: libgstreamer-devel = %{version}-%{release}
 Provides: gstreamer%{api}-devel = %{version}-%{release}
@@ -162,7 +162,7 @@ applications and plugins for GStreamer.
 	--with-package-name='Mandriva %{name} package' \
 	--with-package-origin='http://www.mandriva.com/' \
 	--disable-tests --disable-examples --disable-rpath \
-%if %build_docs
+%if %{build_docs}
 	--enable-docbook \
 	--enable-gtk-doc \
 %else	
@@ -248,10 +248,9 @@ install -m0755 -D %{SOURCE1} %{buildroot}%{_prefix}/lib/rpm/mandriva/gstreamer.p
 %{_libdir}/girepository-1.0/GstController-%{api}.typelib
 %{_libdir}/girepository-1.0/GstNet-%{api}.typelib
 
-
 %files -n %{develname}
 %doc ChangeLog
-%if %build_docs
+%if %{build_docs}
 %doc %{_datadir}/doc/%{oname}-%{api}
 %endif
 %{_prefix}/lib/rpm/mandriva/gstreamer.prov
@@ -282,7 +281,6 @@ install -m0755 -D %{SOURCE1} %{buildroot}%{_prefix}/lib/rpm/mandriva/gstreamer.p
 %{_datadir}/gtk-doc/html/%{oname}-%{api}/
 %{_datadir}/gtk-doc/html/%{oname}-libs-%{api}/
 %{_datadir}/gtk-doc/html/%{oname}-plugins-%{api}
-
 %{_datadir}/gir-1.0/Gst-%{api}.gir
 %{_datadir}/gir-1.0/GstBase-%{api}.gir
 %{_datadir}/gir-1.0/GstCheck-%{api}.gir
