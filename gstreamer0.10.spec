@@ -22,7 +22,6 @@ License: 	LGPLv2+
 Group:		Sound
 URL:		http://gstreamer.freedesktop.org/
 Source0: 	ftp://ftp.gnome.org/pub/GNOME/sources/gstreamer/%{api}/%{oname}-%{version}.tar.xz
-Source1:	gstreamer.prov
 Patch0:		gstreamer-inspect-rpm-format.patch
 
 BuildRequires:	bison
@@ -200,9 +199,6 @@ rm -f %{buildroot}/%{_bindir}/gst-xmllaunch
 #gw really remove rpath for rpmlint
 chrpath -d %{buildroot}{%{_bindir}/gst-{inspect,launch,typefind,xmlinspect,xmllaunch}-0.10,%{_libdir}/{*.so,%{oname}-%{api}/*.so}}
 
-# Add the provides script
-install -m0755 -D %{SOURCE1} %{buildroot}%{_prefix}/lib/rpm/mandriva/gstreamer.prov
-
 %files tools -f %{oname}-%{api}.lang
 %doc AUTHORS COPYING README NEWS
 %dir %{_var}/cache/%{oname}-%{api}
@@ -253,7 +249,6 @@ install -m0755 -D %{SOURCE1} %{buildroot}%{_prefix}/lib/rpm/mandriva/gstreamer.p
 %if %{build_docs}
 %doc %{_datadir}/doc/%{oname}-%{api}
 %endif
-%{_prefix}/lib/rpm/mandriva/gstreamer.prov
 %dir %{_includedir}/%{oname}-%{api}
 %dir %{_includedir}/%{oname}-%{api}/gst
 %{_includedir}/%{oname}-%{api}/gst/*.h
