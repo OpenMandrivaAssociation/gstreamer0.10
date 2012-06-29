@@ -1,8 +1,8 @@
-%define oname gstreamer
-%define vname %{oname}10
+%define	oname	gstreamer
+%define	vname	%{oname}10
 
-%define major	 0
-%define api		 0.10
+%define major	0
+%define api	0.10
 %define libname		%mklibname %{name}_ %{major}
 %define libgstbase	%mklibname gstbase%{api}_ %{major}
 %define libgstcheck	%mklibname gstcheck%{api}_ %{major}
@@ -12,7 +12,7 @@
 %define girname		%mklibname gst-gir %{api}
 %define develname	%mklibname -d %{name}
 
-%define build_docs 0
+%bcond_with	docs
 
 Name:		gstreamer%{api}
 Summary: 	GStreamer Streaming-media framework runtime
@@ -33,13 +33,13 @@ BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(gobject-introspection-1.0)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(popt)
-%ifnarch %arm %mips
+%ifnarch %{arm} %{mips}
 BuildRequires:	valgrind
 %endif
-%ifarch %ix86 
+%ifarch %{ix86}
 BuildRequires:	nasm => 0.90
 %endif
-%if %{build_docs}
+%if %{with docs}
 BuildRequires:	gtk-doc >= 0.7
 BuildRequires:	transfig
 BuildRequires:	docbook-dtd42-xml
@@ -56,14 +56,14 @@ else media-related.  Its plugin-based architecture means that new data
 types or processing capabilities can be added simply by installing new 
 plugins.
 
-%package tools
+%package	tools
 Summary:	GStreamer Streaming-media framework runtime
 Group:		Sound
 Provides:	%{vname}-tools = %{version}-%{release}
 Conflicts:	%mklibname %{oname} 0.10 0.10 < 0.10.35-2
-%rename gstreamer
+%rename		gstreamer
 
-%description tools
+%description	tools
 GStreamer is a streaming-media framework, based on graphs of filters which
 operate on media data. Applications using this library can do anything
 from real-time sound processing to playing videos, and just about anything
@@ -71,41 +71,41 @@ else media-related.  Its plugin-based architecture means that new data
 types or processing capabilities can be added simply by installing new 
 plugins.
 
-%package -n %{libname}
+%package -n	%{libname}
 Summary:	Library for GStreamer streaming-media framework
 Group:		System/Libraries
 Requires:	%{name}-tools >= %{EVRD}
 Provides:	libgstreamer%{api} = %{version}-%{release}
 Obsoletes:	%mklibname %{oname} 0.10 0.10
 
-%description -n %{libname}
+%description -n	%{libname}
 This package contains the library for %{name}.
 
-%package -n %{libgstbase}
+%package -n	%{libgstbase}
 Summary:	Library for GStreamer streaming-media framework
 Group:		System/Libraries
 Conflicts:	%mklibname %{oname} 0.10 0.10 < 0.10.35-2
 
-%description -n %{libgstbase}
+%description -n	%{libgstbase}
 This package contains the library for %{name}base.
 
-%package -n %{libgstcheck}
+%package -n	%{libgstcheck}
 Summary:	Library for GStreamer streaming-media framework
 Group:		System/Libraries
 Conflicts:	%mklibname %{oname} 0.10 0.10 < 0.10.35-2
 
-%description -n %{libgstcheck}
+%description -n	%{libgstcheck}
 This package contains the library for %{name}check.
 
-%package -n %{libgstcontroller}
+%package -n	%{libgstcontroller}
 Summary:	Library for GStreamer streaming-media framework
 Group:		System/Libraries
 Conflicts:	%mklibname %{oname} 0.10 0.10 < 0.10.35-2
 
-%description -n %{libgstcontroller}
+%description -n	%{libgstcontroller}
 This package contains the library for %{name}controller.
 
-%package -n %{libgstdataprocol}
+%package -n	%{libgstdataprocol}
 Summary:	Library for GStreamer streaming-media framework
 Group:		System/Libraries
 Conflicts:	%mklibname %{oname} 0.10 0.10 < 0.10.35-2
@@ -113,15 +113,15 @@ Conflicts:	%mklibname %{oname} 0.10 0.10 < 0.10.35-2
 %description -n %{libgstdataprocol}
 This package contains the library for %{name}dataprocol.
 
-%package -n %{libgstnet}
+%package -n	%{libgstnet}
 Summary:	Library for GStreamer streaming-media framework
 Group:		System/Libraries
 Conflicts:	%mklibname %{oname} 0.10 0.10 < 0.10.35-2
 
-%description -n %{libgstnet}
+%description -n	%{libgstnet}
 This package contains the library for %{name}net.
 
-%package -n %{girname}
+%package -n	%{girname}
 Summary:	GObject Introspection interface libraries for %{name}
 Group:		System/Libraries
 Conflicts:	%mklibname %{oname} 0.10 0.10 < 0.10.35-2
@@ -130,21 +130,21 @@ Conflicts:	gir-repository < 0.6.5-3
 %description -n %{girname}
 GObject Introspection interface libraries for %{name}.
 
-%package -n %{develname}
-Summary: Libraries and include files for GStreamer streaming-media framework
-Group: Development/C
-Requires: %{libname} = %{version}-%{release}
-Requires: %{libgstbase} = %{version}-%{release}
-Requires: %{libgstcheck} = %{version}-%{release}
-Requires: %{libgstcontroller} = %{version}-%{release}
-Requires: %{libgstdataprocol} = %{version}-%{release}
-Requires: %{libgstnet} = %{version}-%{release}
-Requires: %{girname} = %{version}-%{release}
-Requires: rpm-mandriva-setup-build >= 1.113
-Provides: libgstreamer-devel = %{version}-%{release}
-Provides: gstreamer%{api}-devel = %{version}-%{release}
-Obsoletes: %mklibname -d %{name}_ 0.10
-Conflicts: gir-repository < 0.6.5-3
+%package -n	%{develname}
+Summary:	Libraries and include files for GStreamer streaming-media framework
+Group:		Development/C
+Requires:	%{libname} = %{version}-%{release}
+Requires:	%{libgstbase} = %{version}-%{release}
+Requires:	%{libgstcheck} = %{version}-%{release}
+Requires:	%{libgstcontroller} = %{version}-%{release}
+Requires:	%{libgstdataprocol} = %{version}-%{release}
+Requires:	%{libgstnet} = %{version}-%{release}
+Requires:	%{girname} = %{version}-%{release}
+Requires:	rpm-mandriva-setup-build >= 1.113
+Provides:	libgstreamer-devel = %{version}-%{release}
+Provides:	gstreamer%{api}-devel = %{version}-%{release}
+Obsoletes:	%mklibname -d %{name}_ 0.10
+Conflicts:	gir-repository < 0.6.5-3
 
 %description -n %{develname}
 This package contains the libraries and includes files necessary to develop
@@ -161,15 +161,17 @@ applications and plugins for GStreamer.
 	--disable-dependency-tracking \
 	--with-package-name='Mandriva %{name} package' \
 	--with-package-origin='http://www.mandriva.com/' \
-	--disable-tests --disable-examples --disable-rpath \
-%if %{build_docs}
+	--disable-tests \
+	--disable-examples \
+	--disable-rpath \
+%if %{with docs}
 	--enable-docbook \
 	--enable-gtk-doc \
 %else	
 	--disable-docbook \
 	--disable-gtk-doc \
 %endif
-%ifarch %mips
+%ifarch %{mips}
 	--disable-valgrind \
 %endif
 	--with-html-dir=%{_datadir}/gtk-doc/html
@@ -184,16 +186,13 @@ make check
 %makeinstall_std
 mkdir -p %{buildroot}%{_var}/cache/%{oname}-%{api}
 #clean the files we don't want to install 
-rm -f %{buildroot}%{_libdir}/%{oname}-%{api}/*.la
-rm -f %{buildroot}%{_libdir}/%{oname}-%{api}/*.a
-rm -f %{buildroot}/%{_libdir}/*a 
-rm -f %{buildroot}/%{_bindir}/gst-feedback
-rm -f %{buildroot}/%{_bindir}/gst-inspect
-rm -f %{buildroot}/%{_bindir}/gst-launch
-rm -f %{buildroot}/%{_bindir}/gst-md5sum
-rm -f %{buildroot}/%{_bindir}/gst-typefind
-rm -f %{buildroot}/%{_bindir}/gst-xmlinspect
-rm -f %{buildroot}/%{_bindir}/gst-xmllaunch
+rm -f %{buildroot}%{_bindir}/gst-feedback
+rm -f %{buildroot}%{_bindir}/gst-inspect
+rm -f %{buildroot}%{_bindir}/gst-launch
+rm -f %{buildroot}%{_bindir}/gst-md5sum
+rm -f %{buildroot}%{_bindir}/gst-typefind
+rm -f %{buildroot}%{_bindir}/gst-xmlinspect
+rm -f %{buildroot}%{_bindir}/gst-xmllaunch
 
 %find_lang %{oname}-%{api}
 
@@ -247,7 +246,7 @@ chrpath -d %{buildroot}{%{_bindir}/gst-{inspect,launch,typefind,xmlinspect,xmlla
 
 %files -n %{develname}
 %doc ChangeLog
-%if %{build_docs}
+%if %{with docs}
 %doc %{_datadir}/doc/%{oname}-%{api}
 %endif
 %dir %{_includedir}/%{oname}-%{api}
