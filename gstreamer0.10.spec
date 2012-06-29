@@ -159,8 +159,8 @@ applications and plugins for GStreamer.
 	--disable-static \
 	--enable-debug \
 	--disable-dependency-tracking \
-	--with-package-name='Mandriva %{name} package' \
-	--with-package-origin='http://www.mandriva.com/' \
+	--with-package-name='%{distribution} %{name} package' \
+	--with-package-origin='%{disturl}' \
 	--disable-tests \
 	--disable-examples \
 	--disable-rpath \
