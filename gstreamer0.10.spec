@@ -17,7 +17,7 @@
 Name:		gstreamer%{api}
 Summary: 	GStreamer Streaming-media framework runtime
 Version: 	0.10.36
-Release: 	2
+Release: 	3
 License: 	LGPLv2+
 Group:		Sound
 URL:		http://gstreamer.freedesktop.org/
@@ -74,6 +74,7 @@ plugins.
 %package -n %{libname}
 Summary:	Library for GStreamer streaming-media framework
 Group:		System/Libraries
+Requires:	%{name}-tools >= %{EVRD}
 Provides:	libgstreamer%{api} = %{version}-%{release}
 Obsoletes:	%mklibname %{oname} 0.10 0.10
 
