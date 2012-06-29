@@ -34,7 +34,7 @@ BuildRequires:	pkgconfig(gobject-introspection-1.0)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(popt)
 %ifnarch %{arm} %{mips}
-BuildRequires:	valgrind
+BuildRequires:	valgrind-devel
 %endif
 %ifarch %{ix86}
 BuildRequires:	nasm => 0.90
