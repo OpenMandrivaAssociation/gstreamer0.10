@@ -17,7 +17,7 @@
 Name:		gstreamer%{api}
 Summary: 	GStreamer Streaming-media framework runtime
 Version: 	0.10.36
-Release: 	5
+Release: 	6
 License: 	LGPLv2+
 Group:		Sound
 URL:		http://gstreamer.freedesktop.org/
@@ -158,12 +158,10 @@ applications and plugins for GStreamer.
 %configure2_5x \
 	--disable-static \
 	--enable-debug \
-	--disable-dependency-tracking \
 	--with-package-name='%{distribution} %{name} package' \
 	--with-package-origin='%{disturl}' \
 	--disable-tests \
 	--disable-examples \
-	--disable-rpath \
 %if %{with docs}
 	--enable-docbook \
 	--enable-gtk-doc \
