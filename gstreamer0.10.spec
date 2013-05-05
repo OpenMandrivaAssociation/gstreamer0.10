@@ -1,5 +1,4 @@
 %define	oname	gstreamer
-%define	vname	%{oname}10
 
 %define major	0
 %define api	0.10
@@ -10,7 +9,7 @@
 %define libgstdataprocol	%mklibname gstdataprocol%{api}_ %{major}
 %define libgstnet	%mklibname gstnet%{api}_ %{major}
 %define girname		%mklibname gst-gir %{api}
-%define develname	%mklibname -d %{name}
+%define devname	%mklibname -d %{name}
 
 %bcond_with	docs
 
@@ -33,11 +32,9 @@ BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(gobject-introspection-1.0)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(popt)
-%ifnarch %{arm} %{mips}
-BuildRequires:	valgrind-devel
-%endif
 %ifarch %{ix86}
 BuildRequires:	nasm => 0.90
+BuildRequires:	pkgconfig(valgrind)
 %endif
 %if %{with docs}
 BuildRequires:	gtk-doc >= 0.7
@@ -59,7 +56,6 @@ plugins.
 %package	tools
 Summary:	GStreamer Streaming-media framework runtime
 Group:		Sound
-Provides:	%{vname}-tools = %{version}-%{release}
 Conflicts:	%mklibname %{oname} 0.10 0.10 < 0.10.35-2
 %rename		gstreamer
 
@@ -74,9 +70,8 @@ plugins.
 %package -n	%{libname}
 Summary:	Library for GStreamer streaming-media framework
 Group:		System/Libraries
-Requires:	%{name}-tools >= %{EVRD}
-Provides:	libgstreamer%{api} = %{version}-%{release}
-Obsoletes:	%mklibname %{oname} 0.10 0.10
+Suggests:	%{name}-tools >= %{EVRD}
+Obsoletes:	%mklibname %{oname} 0.10 0.10 < 0.10.35-2
 
 %description -n	%{libname}
 This package contains the library for %{name}.
@@ -125,12 +120,11 @@ This package contains the library for %{name}net.
 Summary:	GObject Introspection interface libraries for %{name}
 Group:		System/Libraries
 Conflicts:	%mklibname %{oname} 0.10 0.10 < 0.10.35-2
-Conflicts:	gir-repository < 0.6.5-3
 
 %description -n %{girname}
 GObject Introspection interface libraries for %{name}.
 
-%package -n	%{develname}
+%package -n	%{devname}
 Summary:	Libraries and include files for GStreamer streaming-media framework
 Group:		Development/C
 Requires:	%{libname} = %{version}-%{release}
@@ -140,13 +134,9 @@ Requires:	%{libgstcontroller} = %{version}-%{release}
 Requires:	%{libgstdataprocol} = %{version}-%{release}
 Requires:	%{libgstnet} = %{version}-%{release}
 Requires:	%{girname} = %{version}-%{release}
-Requires:	rpm-mandriva-setup-build >= 1.113
-Provides:	libgstreamer-devel = %{version}-%{release}
-Provides:	gstreamer%{api}-devel = %{version}-%{release}
-Obsoletes:	%mklibname -d %{name}_ 0.10
-Conflicts:	gir-repository < 0.6.5-3
+Provides:	%{name}-devel = %{version}-%{release}
 
-%description -n %{develname}
+%description -n %{devname}
 This package contains the libraries and includes files necessary to develop
 applications and plugins for GStreamer.
 
@@ -242,7 +232,7 @@ chrpath -d %{buildroot}{%{_bindir}/gst-{inspect,launch,typefind,xmlinspect,xmlla
 %{_libdir}/girepository-1.0/GstController-%{api}.typelib
 %{_libdir}/girepository-1.0/GstNet-%{api}.typelib
 
-%files -n %{develname}
+%files -n %{devname}
 %doc ChangeLog
 %if %{with docs}
 %doc %{_datadir}/doc/%{oname}-%{api}
