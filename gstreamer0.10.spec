@@ -12,6 +12,7 @@
 %define devname	%mklibname -d %{name}
 
 %bcond_with	docs
+%bcond_with	bootstrap
 
 Name:		gstreamer%{api}
 Summary: 	GStreamer Streaming-media framework runtime
@@ -116,6 +117,7 @@ Conflicts:	%mklibname %{oname} 0.10 0.10 < 0.10.35-2
 %description -n	%{libgstnet}
 This package contains the library for %{name}net.
 
+%if !%{with bootstrap}
 %package -n	%{girname}
 Summary:	GObject Introspection interface libraries for %{name}
 Group:		System/Libraries
@@ -123,6 +125,7 @@ Conflicts:	%mklibname %{oname} 0.10 0.10 < 0.10.35-2
 
 %description -n %{girname}
 GObject Introspection interface libraries for %{name}.
+%endif
 
 %package -n	%{devname}
 Summary:	Libraries and include files for GStreamer streaming-media framework
@@ -133,7 +136,9 @@ Requires:	%{libgstcheck} = %{version}-%{release}
 Requires:	%{libgstcontroller} = %{version}-%{release}
 Requires:	%{libgstdataprocol} = %{version}-%{release}
 Requires:	%{libgstnet} = %{version}-%{release}
+%if !%{with bootstrap}
 Requires:	%{girname} = %{version}-%{release}
+%endif
 Provides:	%{name}-devel = %{version}-%{release}
 
 %description -n %{devname}
@@ -152,6 +157,9 @@ applications and plugins for GStreamer.
 	--with-package-origin='%{disturl}' \
 	--disable-tests \
 	--disable-examples \
+%if %{with bootstrap}
+	--enable-introspection=no \
+%endif
 %if %{with docs}
 	--enable-docbook \
 	--enable-gtk-doc \
@@ -225,12 +233,14 @@ chrpath -d %{buildroot}{%{_bindir}/gst-{inspect,launch,typefind,xmlinspect,xmlla
 %files -n %{libgstnet}
 %{_libdir}/libgstnet-%{api}.so.%{major}*
 
+%if !%{with bootstrap}
 %files -n %{girname}
 %{_libdir}/girepository-1.0/Gst-%{api}.typelib
 %{_libdir}/girepository-1.0/GstBase-%{api}.typelib
 %{_libdir}/girepository-1.0/GstCheck-%{api}.typelib
 %{_libdir}/girepository-1.0/GstController-%{api}.typelib
 %{_libdir}/girepository-1.0/GstNet-%{api}.typelib
+%endif
 
 %files -n %{devname}
 %doc ChangeLog
@@ -264,9 +274,10 @@ chrpath -d %{buildroot}{%{_bindir}/gst-{inspect,launch,typefind,xmlinspect,xmlla
 %{_datadir}/gtk-doc/html/%{oname}-%{api}/
 %{_datadir}/gtk-doc/html/%{oname}-libs-%{api}/
 %{_datadir}/gtk-doc/html/%{oname}-plugins-%{api}
+%if !%{with bootstrap}
 %{_datadir}/gir-1.0/Gst-%{api}.gir
 %{_datadir}/gir-1.0/GstBase-%{api}.gir
 %{_datadir}/gir-1.0/GstCheck-%{api}.gir
 %{_datadir}/gir-1.0/GstController-%{api}.gir
 %{_datadir}/gir-1.0/GstNet-%{api}.gir
-
+%endif
