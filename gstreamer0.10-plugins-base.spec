@@ -47,6 +47,7 @@ Group:		Sound
 Url:		http://gstreamer.freedesktop.org/
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/gst-plugins-base/%{api}/%{oname}-%{version}.tar.xz
 Patch0:	align.patch
+Patch1: gst-plugins-base-0.10.36-c++11-header-compatibility.patch
 
 BuildRequires:	%{bname}-tools < 1.0
 BuildRequires:	cdda-devel
