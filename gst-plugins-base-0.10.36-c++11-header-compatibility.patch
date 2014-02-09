@@ -1,0 +1,14 @@
+--- gst-plugins-base-0.10.36/gst-libs/gst/video/video.h.omv~	2013-11-26 12:24:38.878542313 +0100
++++ gst-plugins-base-0.10.36/gst-libs/gst/video/video.h	2013-11-26 12:24:58.588542572 +0100
+@@ -342,9 +342,9 @@ typedef enum {
+  */
+ #define GST_VIDEO_CAPS_RGB8_PALETTED \
+   "video/x-raw-rgb, bpp = (int)8, depth = (int)8, "                     \
+-      "width = "GST_VIDEO_SIZE_RANGE" , "		                \
++      "width = " GST_VIDEO_SIZE_RANGE " , "		                \
+       "height = " GST_VIDEO_SIZE_RANGE ", "                             \
+-      "framerate = "GST_VIDEO_FPS_RANGE
++      "framerate = " GST_VIDEO_FPS_RANGE
+ 
+ /**
+  * GST_VIDEO_CAPS_YUV:
