@@ -205,7 +205,7 @@ chrpath -d %{buildroot}{%{_bindir}/gst-{inspect,launch,typefind,xmlinspect,xmlla
 %{_bindir}/gst-xmlinspect-%{api}
 %{_bindir}/gst-xmllaunch-%{api}
 %dir %{_libdir}/%{oname}-%{api}
-%{_libdir}/%{oname}-%{api}/gst-plugin-scanner
+%{_libexecdir}/%{oname}-%{api}/gst-plugin-scanner
 %{_libdir}/%{oname}-%{api}/libgstcoreelements.so
 %{_libdir}/%{oname}-%{api}/libgstcoreindexers.so
 %{_mandir}/man1/gst-feedback-%{api}.1*
