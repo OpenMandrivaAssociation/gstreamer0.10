@@ -1,0 +1,12 @@
+diff -up gstreamer-0.10.36/configure.ac.automake-1_13 gstreamer-0.10.36/configure.ac
+--- gstreamer-0.10.36/configure.ac.automake-1_13	2013-01-04 12:59:12.044508558 +0100
++++ gstreamer-0.10.36/configure.ac	2013-01-04 13:00:48.001582647 +0100
+@@ -21,7 +21,7 @@ dnl can autoconf find the source ?
+ AC_CONFIG_SRCDIR([gst/gst.c])
+ 
+ dnl define the output header for config
+-AM_CONFIG_HEADER([config.h])
++AC_CONFIG_HEADERS([config.h])
+ 
+ dnl AM_MAINTAINER_MODE only provides the option to configure to enable it
+ AM_MAINTAINER_MODE

@@ -22,7 +22,12 @@ License: 	LGPLv2+
 Group:		Sound
 URL:		http://gstreamer.freedesktop.org/
 Source0: 	ftp://ftp.gnome.org/pub/GNOME/sources/gstreamer/%{api}/%{oname}-%{version}.tar.xz
-Patch0:		gstreamer-inspect-rpm-format.patch
+Patch0:         gstreamer-inspect-rpm-format.patch
+# (cjw) a test expects a segfault but glib detects the problem and aborts
+Patch1:         gstreamer-test-glib-abort.patch
+Patch2:         gstreamer-0.10.36-bison-3.0.patch
+Patch3:         gstreamer-0.10.36-automake-1.13.patch
+
 
 BuildRequires:	bison
 BuildRequires:	chrpath

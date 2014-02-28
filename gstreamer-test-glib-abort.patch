@@ -1,0 +1,11 @@
+--- gstreamer/tests/check/gst/gstobject.c.0001	2012-12-01 16:43:08.369724054 +0100
++++ gstreamer/tests/check/gst/gstobject.c	2012-12-01 16:43:39.774367317 +0100
+@@ -538,7 +538,7 @@
+    */
+   /* SEGV tests go last so we can debug the others */
+   if (g_getenv ("CK_FORK") == NULL || strcmp (g_getenv ("CK_FORK"), "no") != 0)
+-    tcase_add_test_raise_signal (tc_chain, test_fail_abstract_new, SIGSEGV);
++    tcase_add_test_raise_signal (tc_chain, test_fail_abstract_new, SIGTRAP);
+ #endif
+ 
+   return s;
