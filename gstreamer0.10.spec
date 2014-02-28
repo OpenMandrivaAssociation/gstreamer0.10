@@ -166,7 +166,7 @@ applications and plugins for GStreamer.
 	--disable-docbook \
 	--disable-gtk-doc \
 %endif
-%ifarch %{mips}
+%ifarch %{mips} aarch64 %arm
 	--disable-valgrind \
 %endif
 	--with-html-dir=%{_datadir}/gtk-doc/html
