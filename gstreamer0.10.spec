@@ -155,6 +155,7 @@ applications and plugins for GStreamer.
 %apply_patches
 
 %build
+CC=gcc CXX=g++ \
 %configure2_5x \
 	--enable-debug \
 	--with-package-name='%{distribution} %{name} package' \
