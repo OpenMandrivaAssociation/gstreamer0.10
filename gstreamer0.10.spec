@@ -17,7 +17,7 @@
 Name:		gstreamer%{api}
 Summary: 	GStreamer Streaming-media framework runtime
 Version: 	0.10.36
-Release: 	14
+Release: 	15
 License: 	LGPLv2+
 Group:		Sound
 URL:		http://gstreamer.freedesktop.org/
@@ -155,8 +155,8 @@ applications and plugins for GStreamer.
 %apply_patches
 
 %build
-CC=gcc CXX=g++ \
-%configure2_5x \
+#CC=gcc CXX=g++ \
+%configure \
 	--enable-debug \
 	--with-package-name='%{distribution} %{name} package' \
 	--with-package-origin='%{disturl}' \
