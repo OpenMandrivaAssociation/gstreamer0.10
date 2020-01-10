@@ -152,7 +152,7 @@ applications and plugins for GStreamer.
 
 %prep
 %setup -qn %{oname}-%{version}
-%apply_patches
+%autopatch -p1
 
 %build
 #CC=gcc CXX=g++ \
