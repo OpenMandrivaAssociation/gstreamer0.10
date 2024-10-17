@@ -20,7 +20,7 @@ Version: 	0.10.36
 Release: 	15
 License: 	LGPLv2+
 Group:		Sound
-URL:		http://gstreamer.freedesktop.org/
+URL:		https://gstreamer.freedesktop.org/
 Source0: 	ftp://ftp.gnome.org/pub/GNOME/sources/gstreamer/%{api}/%{oname}-%{version}.tar.xz
 Patch0:         gstreamer-inspect-rpm-format.patch
 # (cjw) a test expects a segfault but glib detects the problem and aborts
